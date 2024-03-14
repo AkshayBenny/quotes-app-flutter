@@ -12,12 +12,11 @@ class TableCalendarWidget extends StatefulWidget {
 class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   final DateTime _focusedDay = DateTime.now();
   static DateTime _firstDay = DateTime.now();
-  static DateTime _lastDay = DateTime.now();
+  final DateTime _lastDay = DateTime.now().add(const Duration(days: 30));
 
   @override
   void initState() {
     _firstDay = widget.userStreaks.reduce((a, b) => a.isBefore(b) ? a : b);
-    _lastDay = widget.userStreaks.reduce((a, b) => a.isAfter(b) ? a : b);
     super.initState();
   }
 
@@ -40,6 +39,30 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
         titleTextStyle: TextStyle(
           color: Colors.white,
         ),
+      ),
+      calendarBuilders: CalendarBuilders(
+        defaultBuilder: (context, day, focusedDay) {
+          for (DateTime streakDay in widget.userStreaks) {
+            if (day.year == streakDay.year &&
+                day.month == streakDay.month &&
+                day.day == streakDay.day) {
+              return Container(
+                margin: const EdgeInsets.all(4.0),
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 61, 61, 61), // Highlight color
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    '${day.day}',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              );
+            }
+          }
+          return null; // Fallback to default styling
+        },
       ),
       // onPageChanged: (focusedDay) {
       //   setState(() {

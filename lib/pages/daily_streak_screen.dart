@@ -20,7 +20,6 @@ class _DailyStreakScreenState extends State<DailyStreakScreen> {
     DateTime.now().subtract(const Duration(days: 6)),
     DateTime.now().subtract(const Duration(days: 5)),
     DateTime.now().subtract(const Duration(days: 4)),
-    DateTime.now().add(const Duration(days: 3)),
   ];
 
   @override
