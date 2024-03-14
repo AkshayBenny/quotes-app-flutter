@@ -10,6 +10,17 @@ class TableCalendarWidget extends StatefulWidget {
 }
 
 class _TableCalendarWidgetState extends State<TableCalendarWidget> {
+  final DateTime _focusedDay = DateTime.now();
+  static DateTime _firstDay = DateTime.now();
+  static DateTime _lastDay = DateTime.now();
+
+  @override
+  void initState() {
+    _firstDay = widget.userStreaks.reduce((a, b) => a.isBefore(b) ? a : b);
+    _lastDay = widget.userStreaks.reduce((a, b) => a.isAfter(b) ? a : b);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
@@ -18,9 +29,9 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
         weekendTextStyle: TextStyle(color: Colors.red),
         outsideTextStyle: TextStyle(color: Color.fromARGB(255, 230, 230, 230)),
       ),
-      firstDay: DateTime.utc(2010, 10, 16),
-      lastDay: DateTime.utc(2030, 3, 14),
-      focusedDay: DateTime.now(),
+      firstDay: _firstDay,
+      lastDay: _lastDay,
+      focusedDay: _focusedDay,
       headerStyle: const HeaderStyle(
         formatButtonVisible: false,
         titleCentered: false,
@@ -30,34 +41,16 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
           color: Colors.white,
         ),
       ),
-      calendarBuilders: CalendarBuilders(
-        defaultBuilder: (context, day, focusedDay) {
-          for (DateTime highlightDay in widget.userStreaks) {
-            if (day.year == highlightDay.year &&
-                day.month == highlightDay.month &&
-                day.day == highlightDay.day) {
-              return Container(
-                foregroundDecoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Color.fromARGB(255, 52, 52, 52)),
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(38, 38, 38, 1),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                      color: const Color.fromARGB(255, 163, 163, 163),
-                      width: 2),
-                ),
-                child: Center(
-                    child: Text(
-                  '${day.day}',
-                  style: const TextStyle(color: Colors.white),
-                )),
-              );
-            }
-          }
-          return null; // Use the default builder for other days.
-        },
-      ),
+      // onPageChanged: (focusedDay) {
+      //   setState(() {
+      //     _focusedDay = focusedDay;
+      //   });
+      // },
+      // onDaySelected: (selectedDay, focusedDay) {
+      //   setState(() {
+      //     _focusedDay = focusedDay;
+      //   });
+      // },
     );
   }
 }
