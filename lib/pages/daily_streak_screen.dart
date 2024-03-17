@@ -1,4 +1,4 @@
-import 'package:quotes_app_flutter/widgets/table_calendar_widget.dart';
+import 'package:quotes_app_flutter/widgets/table_calendars_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:quotes_app_flutter/widgets/bottom_nav_bar.dart';
 import 'package:quotes_app_flutter/widgets/home_screen_top_bar_widget.dart';
@@ -39,11 +39,11 @@ class _DailyStreakScreenState extends State<DailyStreakScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 1),
               child: Column(
                 children: [
-                  TableCalendarWidget(userStreaks: userStreaks),
+                  TableCalendarsWidget(userStreaks: userStreaks),
                   const Divider(
                     color: Color(0xFFE5EAF6),
                     thickness: 1,
-                  )
+                  ),
                 ],
               ),
             ),
