@@ -57,4 +57,14 @@ class _TableCalendarsWidgetState extends State<TableCalendarsWidget> {
       ],
     );
   }
+
+  Map<String, DateTime> getDateRangeOfMonth(List<DateTime> dateList) {
+    final oldestDate = dateList.reduce((a, b) => a.isBefore(b) ? a : b);
+    final lastDayOfCurrentMonthDate = DateTime.parse(
+        '${oldestDate.year}-${oldestDate.day}-${oldestDate.month}');
+    return {
+      'firstDayDate': oldestDate,
+      'lastDayDate': lastDayOfCurrentMonthDate
+    };
+  }
 }
