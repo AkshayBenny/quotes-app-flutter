@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app_flutter/widgets/table_calenda_widget.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class TableCalendarsWidget extends StatefulWidget {
   const TableCalendarsWidget({super.key, required this.userStreaks});
@@ -30,7 +29,6 @@ class _TableCalendarsWidgetState extends State<TableCalendarsWidget> {
       userCalendarParsedData[month.toString()] = [];
     }
 
-    // seperate userStreaks list into an object conaining different months - each having a different _firstDay and _lastDay
     for (int i = 0; i < widget.userStreaks.length; i++) {
       var userDateTimeData = widget.userStreaks[i];
       userCalendarParsedData[userDateTimeData.month.toString()]!
@@ -45,14 +43,18 @@ class _TableCalendarsWidgetState extends State<TableCalendarsWidget> {
     return Column(
       children: [
         ...userCalendarParsedData.isNotEmpty
-            ? userCalendarParsedData.keys
-                .map((k) => TableCalendarWidget(
-                      firstDay: DateTime.now(),
-                      lastDay: DateTime.now(),
-                      focusedDay: DateTime.now(),
-                      userStreaks: widget.userStreaks,
-                    ))
-                .toList()
+            ? userCalendarParsedData.entries.map((entry) {
+                DateTime? firstDayOfMonth =
+                    getDateRangeOfMonth(entry.value)['firstDayDate'];
+                DateTime? lastDayOfMonth =
+                    getDateRangeOfMonth(entry.value)['lastDayDate'];
+                return TableCalendarWidget(
+                  firstDay: firstDayOfMonth!,
+                  lastDay: lastDayOfMonth!,
+                  focusedDay: firstDayOfMonth,
+                  userStreaks: widget.userStreaks,
+                );
+              }).toList()
             : [const SizedBox(height: 3)],
       ],
     );
@@ -60,8 +62,9 @@ class _TableCalendarsWidgetState extends State<TableCalendarsWidget> {
 
   Map<String, DateTime> getDateRangeOfMonth(List<DateTime> dateList) {
     final oldestDate = dateList.reduce((a, b) => a.isBefore(b) ? a : b);
-    final lastDayOfCurrentMonthDate = DateTime.parse(
-        '${oldestDate.year}-${oldestDate.day}-${oldestDate.month}');
+    final lastDayOfCurrentMonthDate =
+        DateTime(oldestDate.year, oldestDate.month + 1, 0);
+
     return {
       'firstDayDate': oldestDate,
       'lastDayDate': lastDayOfCurrentMonthDate
