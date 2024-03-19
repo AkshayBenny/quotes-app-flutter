@@ -70,7 +70,19 @@ flutter:
     - assets/icons/fire_icon.svg
     - assets/icons/options.png
     - assets/icons/premium_icon.png
+    - assets/icons/bell.png
+    - assets/icons/book.png
+    - assets/icons/comment.png
+    - assets/icons/instagram.png
+    - assets/icons/lock.png
+    - assets/icons/question.png
+    - assets/icons/star.png
+    - assets/icons/translate.png
+    - assets/icons/usd-circle.png 
+    - assets/icons/account.png
+    - assets/icons/logout.png
     - assets/Ellipse.png
+    
     
        # An image asset can refer to one or more resolution-specific "variants", see
 

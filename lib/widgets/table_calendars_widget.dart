@@ -10,9 +10,6 @@ class TableCalendarsWidget extends StatefulWidget {
 }
 
 class _TableCalendarsWidgetState extends State<TableCalendarsWidget> {
-  final DateTime _focusedDay = DateTime.now();
-  static DateTime _firstDay = DateTime.now();
-  final DateTime _lastDay = DateTime.now().add(const Duration(days: 30));
 
   final List<String> monthsList = [];
   final Map<String, List<DateTime>> userCalendarParsedData =
@@ -20,7 +17,6 @@ class _TableCalendarsWidgetState extends State<TableCalendarsWidget> {
 
   @override
   void initState() {
-    _firstDay = widget.userStreaks.reduce((a, b) => a.isBefore(b) ? a : b);
 
     for (int i = 0; i < widget.userStreaks.length; i++) {
       var month = widget.userStreaks[i].month;

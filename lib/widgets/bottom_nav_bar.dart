@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quotes_app_flutter/pages/daily_streak_screen.dart';
 import 'package:quotes_app_flutter/pages/home_screen.dart';
+import 'package:quotes_app_flutter/pages/profile_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -26,6 +27,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => const DailyStreakScreen()),
+            (route) => false);
+      } else if (_selectedIndex == 2) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const ProfileScreen()),
             (route) => false);
       }
     });
