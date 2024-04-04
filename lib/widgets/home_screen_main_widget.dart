@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quotes_app_flutter/utils/create_image_from_text.dart';
+import 'package:social_share/social_share.dart';
 
 class HomeScreenMainWidget extends StatefulWidget {
   const HomeScreenMainWidget({super.key, required this.quote});
@@ -44,7 +46,28 @@ class _HomeScreenMainWidgetState extends State<HomeScreenMainWidget> {
               width: 24,
             ),
             FilledButton(
-              onPressed: () {},
+              onPressed: () async {
+                try {
+                  String imagePath = await createImageFromText(widget.quote);
+                  // Attempt to share to Instagram Story and capture the response as a String?
+                  String? result = await SocialShare.shareInstagramStory(
+                    appId: '720050726869433',
+                    imagePath: imagePath,
+                    backgroundTopColor: "#ffffff",
+                    backgroundBottomColor: "#000000",
+                  );
+
+                  // Check the result and act accordingly
+                  if (result != null && result.isNotEmpty) {
+                    print("Sharing Result: $result");
+                    // Handle success or specific result here. The actual handling will depend on the response content.
+                  } else {
+                    print("Sharing failed or was cancelled");
+                  }
+                } catch (e) {
+                  print("Error sharing to Instagram Story: $e");
+                }
+              },
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.fromLTRB(42, 12, 42, 12),
                 backgroundColor: Colors.white,
