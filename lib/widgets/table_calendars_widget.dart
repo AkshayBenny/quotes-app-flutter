@@ -10,14 +10,12 @@ class TableCalendarsWidget extends StatefulWidget {
 }
 
 class _TableCalendarsWidgetState extends State<TableCalendarsWidget> {
-
   final List<String> monthsList = [];
   final Map<String, List<DateTime>> userCalendarParsedData =
       <String, List<DateTime>>{};
 
   @override
   void initState() {
-
     for (int i = 0; i < widget.userStreaks.length; i++) {
       var month = widget.userStreaks[i].month;
       monthsList.add(month.toString());
@@ -36,23 +34,36 @@ class _TableCalendarsWidgetState extends State<TableCalendarsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ...userCalendarParsedData.isNotEmpty
-            ? userCalendarParsedData.entries.map((entry) {
-                DateTime? firstDayOfMonth =
-                    getDateRangeOfMonth(entry.value)['firstDayDate'];
-                DateTime? lastDayOfMonth =
-                    getDateRangeOfMonth(entry.value)['lastDayDate'];
-                return TableCalendarWidget(
-                  firstDay: firstDayOfMonth!,
-                  lastDay: lastDayOfMonth!,
-                  focusedDay: firstDayOfMonth,
-                  userStreaks: widget.userStreaks,
-                );
-              }).toList()
-            : [const SizedBox(height: 3)],
-      ],
+    final screenHeight = MediaQuery.of(context).size.height;
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: screenHeight),
+        child: Column(
+          children: [
+            ...userCalendarParsedData.isNotEmpty
+                ? userCalendarParsedData.entries.map((entry) {
+                    DateTime? firstDayOfMonth =
+                        getDateRangeOfMonth(entry.value)['firstDayDate'];
+                    DateTime? lastDayOfMonth =
+                        getDateRangeOfMonth(entry.value)['lastDayDate'];
+                    return Column(
+                      children: [
+                        TableCalendarWidget(
+                          firstDay: firstDayOfMonth!,
+                          lastDay: lastDayOfMonth!,
+                          focusedDay: firstDayOfMonth,
+                          userStreaks: widget.userStreaks,
+                        ),
+                      ],
+                    );
+                  }).toList()
+                : [
+                    const SizedBox(height: 300),
+                  ],
+          ],
+        ),
+      ),
     );
   }
 

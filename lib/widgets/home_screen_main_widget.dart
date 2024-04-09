@@ -82,15 +82,6 @@ class _HomeScreenMainWidgetState extends State<HomeScreenMainWidget> {
             const SizedBox(
               width: 24,
             ),
-            FilledButton(
-              onPressed: () {},
-              style: FilledButton.styleFrom(
-                  padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
-                  backgroundColor: Colors.white.withOpacity(0.12),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12))),
-              child: const Icon(Icons.favorite),
-            ),
           ],
         ),
       ],

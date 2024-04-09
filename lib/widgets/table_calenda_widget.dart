@@ -21,6 +21,7 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
+      availableGestures: AvailableGestures.none,
       calendarStyle: const CalendarStyle(
         defaultTextStyle: TextStyle(color: Colors.orange),
         weekendTextStyle: TextStyle(color: Colors.red),
