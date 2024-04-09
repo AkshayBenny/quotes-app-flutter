@@ -34,35 +34,45 @@ class _TableCalendarsWidgetState extends State<TableCalendarsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      child: ConstrainedBox(
-        constraints: BoxConstraints(minHeight: screenHeight),
-        child: Column(
-          children: [
-            ...userCalendarParsedData.isNotEmpty
-                ? userCalendarParsedData.entries.map((entry) {
-                    DateTime? firstDayOfMonth =
-                        getDateRangeOfMonth(entry.value)['firstDayDate'];
-                    DateTime? lastDayOfMonth =
-                        getDateRangeOfMonth(entry.value)['lastDayDate'];
-                    return Column(
-                      children: [
-                        TableCalendarWidget(
-                          firstDay: firstDayOfMonth!,
-                          lastDay: lastDayOfMonth!,
-                          focusedDay: firstDayOfMonth,
-                          userStreaks: widget.userStreaks,
-                        ),
-                      ],
-                    );
-                  }).toList()
-                : [
-                    const SizedBox(height: 300),
-                  ],
-          ],
-        ),
+      child: Column(
+        children: [
+          ...userCalendarParsedData.isNotEmpty
+              ? userCalendarParsedData.entries.map((entry) {
+                  DateTime? firstDayOfMonth =
+                      getDateRangeOfMonth(entry.value)['firstDayDate'];
+                  DateTime? lastDayOfMonth =
+                      getDateRangeOfMonth(entry.value)['lastDayDate'];
+                  return Column(
+                    children: [
+                      const SizedBox(
+                        height: 27,
+                      ),
+                      TableCalendarWidget(
+                        firstDay: firstDayOfMonth!,
+                        lastDay: lastDayOfMonth!,
+                        focusedDay: firstDayOfMonth,
+                        userStreaks: widget.userStreaks,
+                      ),
+                      const SizedBox(
+                        height: 27,
+                      ),
+                      //   const Divider(
+                      //     color: Color.fromARGB(
+                      //       229,
+                      //       234,
+                      //       246,
+                      //       1,
+                      //     ),
+                      //   )
+                    ],
+                  );
+                }).toList()
+              : [
+                  const SizedBox(height: 300),
+                ],
+        ],
       ),
     );
   }
